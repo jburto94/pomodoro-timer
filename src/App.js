@@ -10,16 +10,16 @@ class App extends Component {
     this.state = { 
       session: {
         sec: 0,
-        min: 1,
-        incrementMin: 1
+        min: 25,
+        incrementMin: 25
       },
       break: {
         sec: 0,
         min: 5,
         incrementMin: 5
       },
-      type: 'break',
-      paused: false
+      type: 'session',
+      play: false
     };
     this.breakIncrementor = this.breakIncrementor.bind(this);
     this.breakDecrementor = this.breakDecrementor.bind(this);
@@ -27,11 +27,13 @@ class App extends Component {
     this.sessionDecrementor = this.sessionDecrementor.bind(this);
     this.countdown = this.countdown.bind(this);
     this.handlePlay = this.handlePlay.bind(this);
+    this.handleReset = this.handleReset.bind(this);
+    this.handleSwitch = this.handleSwitch.bind(this);
   }
 
   breakIncrementor() {
     let incrementBreak = this.state.break.incrementMin;
-    if(this.state.paused && this.state.break.min < 99) {
+    if(this.state.play && this.state.break.min < 99) {
       incrementBreak++;
       this.setState({
         break: {
@@ -45,7 +47,7 @@ class App extends Component {
 
   breakDecrementor() {
     let decrementBreak = this.state.break.incrementMin;
-    if(this.state.paused && this.state.break.min > 1) {
+    if(this.state.play && this.state.break.min > 1) {
       decrementBreak--;
       this.setState({
         break: {
@@ -59,7 +61,7 @@ class App extends Component {
 
   sessionIncrementor() {
     let incrementSession = this.state.session.incrementMin;
-    if(this.state.paused && this.state.session.min < 99) {
+    if(this.state.play && this.state.session.min < 99) {
       incrementSession++;
       this.setState({
         session: {
@@ -73,7 +75,7 @@ class App extends Component {
 
   sessionDecrementor() {
     let decrementSession = this.state.session.incrementMin;
-    if(this.state.paused === true && this.state.session.min > 1) {
+    if(this.state.play && this.state.session.min > 1) {
       decrementSession--;
       this.setState({
         session: {
@@ -87,9 +89,9 @@ class App extends Component {
 
   handlePlay() {
     this.setState({
-      paused: !this.state.paused
+      play: !this.state.play
     });
-    if(this.state.paused) {
+    if(this.state.play) {
       this.countdown();
     } else {
       clearInterval(this.timer);
@@ -120,8 +122,56 @@ class App extends Component {
             incrementMin
           }
         });
+      } else {
+        this.handleSwitch();
       }
     }, 1000);
+  }
+
+  handleReset() {
+    if(this.state.play) {
+      this.setState({
+        session: {
+          sec: 0,
+          min: 25,
+          incrementMin: 25
+        },
+        break: {
+          sec: 0,
+          min: 5,
+          incrementMin: 5
+        },
+        type: 'session'
+      });
+    } else {
+      return;
+    }
+  }
+
+  handleSwitch() {
+    if(this.state.session.min === 0 && this.state.session.sec === 0) {
+      this.setState({
+        type: 'break',
+        session: {
+          min: this.state.session.incrementMin,
+          sec: 0,
+          incrementMin: this.state.session.incrementMin
+        },
+        play: false
+      });
+      this.handlePlay();
+    } else if(this.state.break.min === 0 && this.state.break.sec === 0) {
+      this.setState({
+        type: 'session',
+        break: {
+          min: this.state.break.incrementMin,
+          sec: 0,
+          incrementMin: this.state.break.incrementMin,
+        },
+        play: false
+      });
+      this.handlePlay();
+    }
   }
 
   componentDidMount() {
@@ -151,8 +201,9 @@ class App extends Component {
           session={this.state.session} 
           break={this.state.break}
           type={this.state.type}
-          paused={this.state.paused}
+          play={this.state.play}
           handlePlay={this.handlePlay}
+          handleReset={this.handleReset}
         />
       </div>
     )

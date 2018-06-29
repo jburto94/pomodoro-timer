@@ -2,10 +2,10 @@ import React from 'react';
 import './Timer.css';
 
 const Timer = props => {
-  let count = document.querySelector('h4');
+  /*let count = document.querySelector('h4');
   if(props[props.type].min < 1) {
     count.style = 'color: #cd2626';
-  }
+  }*/
 
   if(props[props.type].sec < 10) {
     return(
@@ -16,6 +16,7 @@ const Timer = props => {
            0{props[props.type].sec}<span>sec</span>
         </h4>
         <button className='screen-btn' onClick={props.handlePlay}>Play || Pause</button>
+        <button className='screen-btn' onClick={props.handleReset}>Reset</button>
       </div>
     );
   } else {
@@ -27,6 +28,7 @@ const Timer = props => {
           {props[props.type].sec}<span>sec</span>
         </h4>
         <button className='screen-btn' onClick={props.handlePlay}>Play || Pause</button>
+        <button className='screen-btn' onClick={props.handleReset}>Reset</button>
       </div>
     );
   }
