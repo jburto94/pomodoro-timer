@@ -18,7 +18,7 @@ class App extends Component {
         min: 5,
         incrementMin: 5
       },
-      type: 'session',
+      type: 'break',
       paused: false
     };
     this.breakIncrementor = this.breakIncrementor.bind(this);
@@ -99,22 +99,25 @@ class App extends Component {
   countdown() {
     let min = this.state[this.state.type].min;
     let sec = this.state[this.state.type].sec;
+    let incrementMin = this.state[this.state.type].incrementMin;
     this.timer = setInterval(() => {
       if(min > 0 && sec === 0) {
         min--;
         sec = 59;
         this.setState({
           [this.state.type]: {
-            min: min,
-            sec: sec
+            min,
+            sec,
+            incrementMin
           }
         });
       } else if(sec > 0 && sec <= 59) {
         sec--;
         this.setState({
           [this.state.type]: {
-            min: min,
-            sec: sec
+            min,
+            sec,
+            incrementMin
           }
         });
       }

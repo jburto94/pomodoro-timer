@@ -52,3 +52,7 @@
   background: #888;
   color: #111;
 }
+
+.screen-btn:focus {
+  outline: none;
+}

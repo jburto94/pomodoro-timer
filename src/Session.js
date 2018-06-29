@@ -1,12 +1,13 @@
 import React from 'react';
+import './LengthAdjusters.css';
 
 const Session = props => {
   return (
-    <div>
-      <h3 className='session-length'>Session Length</h3>
-      <button onClick={props.incrementSession}>+</button>
-      <p>{props.length}</p>
-      <button onClick={props.decrementSession}>-</button>
+    <div className='length-container'>
+      <h3 className='length-title'>Session Length</h3>
+      <button className='length-btn' onClick={props.incrementSession}>+</button>
+      <p className='length'>{props.length}</p>
+      <button className='length-btn' onClick={props.decrementSession}>-</button>
     </div>
   );
 }

@@ -1,0 +1,31 @@
+.length-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
+
+.length-title, .length {
+  margin-bottom: 10px;
+  font-size: 25px;
+}
+
+.length-btn {
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  border-radius: 7px;
+  margin-bottom: 10px;
+  color: #333;
+  background: #aaa;
+}
+
+.length-btn:hover {
+  background: #888;
+  color: #111;
+}
+
+.length-btn:focus {
+  outline: none;
+}
