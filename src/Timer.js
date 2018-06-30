@@ -2,10 +2,10 @@ import React from 'react';
 import './Timer.css';
 
 const Timer = props => {
-  /*let count = document.querySelector('h4');
+  let count = document.querySelector('h4');
   if(props[props.type].min < 1) {
     count.style = 'color: #cd2626';
-  }*/
+  }
 
   if(props[props.type].sec < 10) {
     return(
